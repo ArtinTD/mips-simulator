@@ -10,11 +10,9 @@ public class Test {
         System.out.println(Memory.read(0));
 
 
-        String str = "      add          a,  b,        c,d";
-        String[] split = str.trim().split("[,\\s]+");
-        for (String s : split) {
-            System.out.println(s);
-        }
+        String str = "      add          $a,  $b,        $c,$d(e)";
+        ParseString.parseString(str);
+
     }
 
 

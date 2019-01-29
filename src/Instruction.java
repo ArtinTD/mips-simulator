@@ -16,32 +16,46 @@ public class Instruction {
     }
 //    TODO
     private void decode(){
-        String[] tokens = code.trim().split("[()\\$,\\s]+");
+        ParseString ps = new ParseString(this.code);
         //TODO  catching the exception : IllegalArgumentException
-        type = Type.valueOf(tokens[0].toUpperCase());
+        this.type = ps.type;
         switch(type){
+            // Rtype $rd,$rs,$rt
             case ADD:
             case SUB:
             case AND:
             case OR:
             case NOR:
             case SLT:
-                this.Rd = Integer.parseInt(tokens[1]);
-                this.Rs = Integer.parseInt(tokens[2]);
-                this.Rt = Integer.parseInt(tokens[3]);
+                this.Rd = ps.args[0];
+                this.Rs = ps.args[1];
+                this.Rt = ps.args[2];
                 break;
+            // Itype $rs,$rd,immediate
             case BEQ:
-                this.Rs = Integer.parseInt(tokens[1]);
-                this.Rt = Integer.parseInt(tokens[2]);
-                this.immediate = Integer.parseInt(tokens[3]);
+                this.Rs = ps.args[0];
+                this.Rt = ps.args[1];
+                this.immediate = ps.args[2];
                 break;
+
+            // I Type lw $rt,immediate($rs)
             case LW:
             case SW:
+                this.Rt = ps.args[0];
+                this.immediate= ps.args[1];
+                this.Rs = ps.args[2];
 //                TODO
                 break;
-
-
 //                , and, or,nor,slt,beq,lw,swadd, sub, and, or,nor,slt,beq,lw,sw
         }
     }
+
+
+//     Examples:
+//    lw     $t0, 4($gp)
+//    add   $t0, $t0, $t0
+//    lw     $t1, 4($gp)
+//    mult   $t1, $t1, $t2
+//    add    $t2, $t0, $t1
+//    sw     $t2, 0($gp)
 }
