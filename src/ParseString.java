@@ -4,6 +4,10 @@ import java.util.Map;
 /**
  * Created by mhebt on 29/01/2019.
  */
+
+//TODO: comment handling : Trimming
+//TODO: exception handling : invalid type or arguments
+
 public class ParseString {
     public int[] args;
     public Type type;
