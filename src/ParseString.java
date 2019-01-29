@@ -12,16 +12,16 @@ public class ParseString {
         str = str.trim();
         String[] split = str.split("[\\s()$,]+");
 
-        this.type = Type.valueOf(split[0]);
+        this.type = Type.valueOf(split[0].toUpperCase());
 
         args = new int[split.length-1];
 
         for (int i = 1; i < split.length; i++) {
 //            TODO: EXCEPTION HANDLING : INVALID ARGUMENTS
             if (map.containsKey(split[i]))
-                args[i] = map.get(split[i]);
+                args[i-1] = map.get(split[i]);
             else
-                args[i] = Integer.parseInt(split[i]);
+                args[i-1] = Integer.parseInt(split[i]);
         }
 
     }
