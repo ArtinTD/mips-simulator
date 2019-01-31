@@ -9,13 +9,14 @@ public class Instruction {
     String code;
     int binaryCode;
     Type type;
+    String label = null;
 
     Instruction(String code){
         this.code = code;
         decode();
     }
 //    TODO
-    private void decode(){
+void decode(){
         ParseString ps = new ParseString(this.code);
         //TODO  catching the exception : IllegalArgumentException
         this.type = ps.type;
