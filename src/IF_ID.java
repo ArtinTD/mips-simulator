@@ -2,7 +2,7 @@
 /**
  * Created by mhebt on 01/02/2019.
  */
-public class ID_IF extends PipelineReg {
+public class IF_ID extends PipelineReg {
     public int binary;
     public int pc;
 
@@ -12,7 +12,16 @@ public class ID_IF extends PipelineReg {
         this.pc = pc;
     }
 
+    void exec(){
+        this.pc +=4;
+    }
 
+    IF_ID copy(){
+        IF_ID ret= new IF_ID();
+        ret.binary = this.binary;
+        ret.pc = this.pc;
 
+        return ret;
+    }
     //TODO: Contstructor
 }

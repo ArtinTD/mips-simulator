@@ -7,7 +7,7 @@ public class ControlLines {
     public boolean ALUOp1;
     public boolean ALUOp0;
     public boolean ALUSrc;
-    //MeM
+    //EX_MEM
     public boolean Branch;
     public boolean MemRead;
     public boolean MemWrite;
@@ -16,6 +16,7 @@ public class ControlLines {
     public boolean MemToReg;
 
     //TODO: CHECKING STATIC INStANCES TO BE CORRECT
+    // STATIC PREDEFINED CONTROLLINES
     static ControlLines _RTYPE_ = new ControlLines(true, true, false, false, false, false, false, true, false);
     static ControlLines _LW_ = new ControlLines(false, false, false, true, false, true, false, true, true);
     static ControlLines _SW_ = new ControlLines(false, false, false, true, false, false, true, false, false);
@@ -33,4 +34,6 @@ public class ControlLines {
         RegWrite = regWrite;
         MemToReg = memToReg;
     }
+
+
 }
