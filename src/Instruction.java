@@ -8,9 +8,10 @@ public class Instruction {
     int immediate;
     String code;
     int binaryCode;
-    Type type;
+    public Type type;
     String label = null;
-
+     int funct;
+    //TODO FUNCT + INSTRUCTION COMPLETE DECODE;
     Instruction(String code){
         this.code = code;
         decode();

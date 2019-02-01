@@ -17,6 +17,11 @@ public class Controller {
     Registers registers = new Registers();
     Registers forwardingRegisters = new Registers();
 
+    ID_IF if_id;
+    ID_EX  id_ex;
+    EX_MEM ex_mem;
+    MEM_WB mem_wb;
+
     public Controller(ArrayList<Instruction> instructions) {
         this.instructions = new HashMap<>();
         this.labelToAddress = new HashMap<>();
@@ -31,8 +36,8 @@ public class Controller {
     public void execute(){
         pipelinePc = new ArrayDeque<>();
         piplineInstructions = new ArrayList<>();
-        // TODO: 1/31/2019 Other Pipeline registers
 
+        //TODO: other pipeline registers
         pipelinePc.addLast(INITIAL_PC);
 
         do{
@@ -47,6 +52,7 @@ public class Controller {
 
             for (int i = 0; i < piplineInstructions.size(); i++) {
                 if (piplineInstructions.get(i) == null) // Stall
+                //TODO: pipeline registers
                     continue;
                 Instruction instruction = piplineInstructions.get(i);
                 switch (i){
@@ -55,7 +61,7 @@ public class Controller {
                     case 1: // Instruction decode
                         instruction.decode();
                     case 2: // ALU
-                        int aluReturn = ALU.compute(instruction.type, instruction, forwardingRegisters);
+                        int aluReturn = ALU.compute(instruction, forwardingRegisters);
 
                     case 3: // Memory read and write + pc update
 
@@ -64,4 +70,5 @@ public class Controller {
             }
         } while (!piplineInstructions.isEmpty());
     }
+
 }

@@ -2,7 +2,9 @@
  * Created by ASUS on 1/31/2019.
  */
 public class ALU {
-    public static int compute(Type type, Instruction instruction, Registers registers) {
+    public static int compute(Instruction instruction, Registers registers) {
+        //Removed type from arguments
+        Type type = instruction.type;
         switch(type){
             // Rtype $rd,$rs,$rt
             case ADD:
