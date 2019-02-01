@@ -72,23 +72,27 @@ public class Controller {
                     case 0:
                         instruction.decode();
                         if_id.eval(instruction,pc);
+                        if_id.exec();
                         // Instruction fetch
                         // nothing to do?
                     case 1: // Instruction decode
 //                        instruction.decode();
                         id_ex.eval(copy_if_id,instruction,forwardingRegisters);
+                        id_ex.exec();
                     case 2: // ALU
 //                        int aluReturn = ALU.compute(instruction, forwardingRegisters);
                         //TODO: FORWARDING
                         boolean forward = false;
-                        if (!forward)
-                            ex_mem.eval(copy_id_ex,instruction);
-                        else
-                            ex_mem.eval_forward();
+                        if (!forward) {
+                            ex_mem.eval(copy_id_ex, instruction);
+                            id_ex.exec();
+                        }
                     case 3: // Memory read and write + pc update
                         mem_wb.eval(copy_ex_mem,instruction);
+                        mem_wb.exec();
                     case 4: // Register write?
                         wb_fin.eval(copy_mem_wb,forwardingRegisters);
+                        wb_fin.exec();
 
 
                 }
