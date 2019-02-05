@@ -101,7 +101,20 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._SW_;
         }
-    };
+    },
+    STALL{
+        @Override
+        public int ALUCompute(int alu1, int alu2) {
+            return 0;
+        }
+
+        @Override
+        public ControlLines getControlLines() {
+            return ControlLines._STALL_;
+        }
+    }
+    ;
+
 
 
     public abstract int ALUCompute(int alu1, int alu2);

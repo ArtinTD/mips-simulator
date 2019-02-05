@@ -1,27 +1,35 @@
 /**
  * Created by mhebt on 29/01/2019.
  */
+//TODO: completing remained parts
 public class Instruction {
-    int Rs;
-    int Rt;
-    int Rd;
-    int immediate;
+    int Rs = 0;
+    int Rt = 0;
+    int Rd = 0;
+    int immediate = 0;
     String code;
-    int binaryCode;
+    int binaryCode = 0;
     public Type type;
     String label = null;
-     int funct;
+    int funct = 0;
+
+
+    static Instruction _STALL_ = new Instruction("Stall 0 0 0");
     //TODO FUNCT + INSTRUCTION COMPLETE DECODE;
-    Instruction(String code){
+    Instruction(String code) {
         this.code = code;
         decode();
     }
-//    TODO
-void decode(){
+
+    //    TODO
+    void decode() {
         ParseString ps = new ParseString(this.code);
         //TODO  catching the exception : IllegalArgumentException
+        funct = 0;
+        binaryCode = 0;
+        //End of TODO
         this.type = ps.type;
-        switch(type){
+        switch (type) {
             // Rtype $rd,$rs,$rt
             case ADD:
             case SUB:
@@ -44,7 +52,7 @@ void decode(){
             case LW:
             case SW:
                 this.Rt = ps.args[0];
-                this.immediate= ps.args[1];
+                this.immediate = ps.args[1];
                 this.Rs = ps.args[2];
 //                TODO
                 break;

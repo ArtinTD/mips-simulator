@@ -2,7 +2,7 @@
  * Created by mhebt on 01/02/2019.
  */
  class ID_EX extends PipelineReg{
-     public ControlLines controlLines;
+     public ControlLines controlLines = ControlLines._STALL_;
      public int pc;
      public int readReg1;
      public int readReg2;

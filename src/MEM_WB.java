@@ -2,7 +2,7 @@
  * Created by mhebt on 01/02/2019.
  */
 public class MEM_WB extends PipelineReg{
-    public ControlLines controlLines;
+    public ControlLines controlLines = ControlLines._STALL_;
     public int readMem;
     public int ALUResult;
     public int writeReg;

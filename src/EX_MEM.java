@@ -3,7 +3,7 @@
  * Created by mhebt on 01/02/2019.
  */
 public class EX_MEM extends PipelineReg {
-    public ControlLines controlLines;
+    public ControlLines controlLines =ControlLines._STALL_;
     public int pc;
     public boolean zero;
     public int ALUResult;
