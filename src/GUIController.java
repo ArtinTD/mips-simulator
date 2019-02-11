@@ -1,10 +1,13 @@
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,22 +19,32 @@ public class GUIController implements Initializable {
             "s2", "s3", "s4", "s5", "s6", "s7", "t8",
             "t9", "k0", "k1", "gp", "sp", "fp", "ra"};
 
+    private Controller mipsController;
     @FXML
     private TableView<Integer> registers = new TableView<>();
 
     @FXML
-    private TableColumn<Integer, Number> regname = new TableColumn<>();
+    private TextArea code = new TextArea();
+
+    @FXML
+    private TextField clockCycle = new TextField();
 
     @FXML
     public void compile(Event e) {
-        System.out.println("Yayyy");
+        System.out.println(code.getParagraphs());
+        // TODO: 2/11/19  initial mipsController
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        clockCycle.textProperty().addListener((obj, oldVal, newVal) -> {
+            changeClockcycle(newVal, 0);
+        });
+
         for (int i = 0; i < 32; i++) {
             registers.getItems().add(i);
         }
+
         registers.getColumns().forEach(
                 column -> {
                     switch (column.textProperty().getValue()) {
@@ -59,4 +72,23 @@ public class GUIController implements Initializable {
         );
 
     }
+
+    public void changeClockcycle(String val, int increase) {
+        // TODO: 2/11/19 execute till given
+        try {
+            int clockCycleNumber = Integer.parseInt(val);
+            clockCycle.textProperty().setValue((String.valueOf(Math.max(0, clockCycleNumber + increase))));
+        } catch(Exception ignored){
+        }
+    }
+
+
+    public void nextClockcycle(ActionEvent actionEvent) {
+        changeClockcycle(clockCycle.getText(), 1);
+    }
+
+    public void prevClockcycle(ActionEvent actionEvent) {
+        changeClockcycle(clockCycle.getText(), -1);
+    }
+
 }
