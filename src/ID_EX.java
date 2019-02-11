@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Created by mhebt on 01/02/2019.
  */
@@ -8,8 +11,10 @@
      public int readReg2;
      public int Rt;
      public int Rd;
+     public int Rs;
      public int immediate;
      public int funct;
+
 
     
     void eval(IF_ID id_if, Instruction i, Registers registers) {
@@ -19,10 +24,14 @@
         this.readReg2 = registers.read(i.Rt);
         this.Rt = i.Rt;
         this.Rd = i.Rd;
+        this.Rs = i.Rs;
         this.immediate = i.immediate;
         this.funct = i.funct;
+
     }
-    void exec(){}
+    void exec(){
+
+    }
 
     ID_EX copy(){
         ID_EX id_ex = new ID_EX();
@@ -32,6 +41,7 @@
         id_ex.readReg2 = this.readReg2;
         id_ex.Rt = this.Rt;
         id_ex.Rd= this.Rd;
+        id_ex.Rs = this.Rs;
         id_ex.immediate = this.immediate;
         id_ex.funct = this.funct;
 

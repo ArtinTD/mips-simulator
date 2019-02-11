@@ -5,11 +5,12 @@ public class ALU {
     public static int compute(Instruction instruction, Registers registers) {
         //Removed type from arguments
         Type type = instruction.type;
+        int reg1,reg2,imd = 0;
         switch(type){
             // Rtype $rd,$rs,$rt
             case ADD:
-                int reg1 = registers.read( instruction.Rs );
-                int reg2 = registers.read( instruction.Rt );
+                reg1 = registers.read( instruction.Rs );
+                reg2 = registers.read( instruction.Rt );
                 registers.write(instruction.Rd, reg1 + reg2);
                 return reg1+ reg2;
             case SUB:
@@ -43,11 +44,18 @@ public class ALU {
                 return (reg1 == reg2 ? 1 : 0);
             case LW:
                 reg1 = registers.read( instruction.Rs );
-                int imd = instruction.immediate;
+                imd = instruction.immediate;
+                registers.write(instruction.Rt,Memory.read(reg1 + imd));
+
                 return reg1 + imd;
             case SW:
                 reg1 = registers.read( instruction.Rs );
                 imd = instruction.immediate;
+                return reg1 + imd;
+            case ADDI:
+                reg1 = registers.read( instruction.Rs );
+                imd = instruction.immediate;
+                registers.write(instruction.Rt, (reg1 + imd));
                 return reg1 + imd;
         }
         return -1;

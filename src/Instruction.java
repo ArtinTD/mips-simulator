@@ -12,7 +12,7 @@ public class Instruction {
     public Type type;
     String label = null;
     int funct = 0;
-
+    String inpLabel = null;
 
     static Instruction _STALL_ = new Instruction("Stall 0 0 0");
     //TODO FUNCT + INSTRUCTION COMPLETE DECODE;
@@ -45,7 +45,7 @@ public class Instruction {
             case BEQ:
                 this.Rs = ps.args[0];
                 this.Rt = ps.args[1];
-                this.immediate = ps.args[2];
+                this.label = ps.label;
                 break;
 
             // I Type lw $rt,immediate($rs)
@@ -57,6 +57,10 @@ public class Instruction {
 //                TODO
                 break;
 //                , and, or,nor,slt,beq,lw,swadd, sub, and, or,nor,slt,beq,lw,sw
+            case ADDI:
+                this.Rt = ps.args[0];
+                this.Rs = ps.args[1];
+                this.immediate = ps.args[2];
         }
     }
 

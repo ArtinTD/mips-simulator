@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by ASUS on 1/31/2019.
  */
 public class Controller {
-    private static final int INITIAL_PC = 1000;
+    private static final int INITIAL_PC =0;
     Map<Integer, Instruction> instructions;
     Map<String, Integer> labelToAddress;
     int cycleNumber;
@@ -24,15 +24,14 @@ public class Controller {
     WB_FIN wb_fin;
 
 
-
     public Controller(ArrayList<Instruction> instructions) {
         this.instructions = new HashMap<>();
         this.labelToAddress = new HashMap<>();
 
         for (int i = 0; i < instructions.size(); i++) {
             this.instructions.put(4 * i + INITIAL_PC, instructions.get(i));
-            if (instructions.get(i).label != null)
-                labelToAddress.put(instructions.get(i).label, 4 * i + INITIAL_PC);
+            if (instructions.get(i).inpLabel != null)
+                labelToAddress.put(instructions.get(i).inpLabel, 4*i + INITIAL_PC);
         }
     }
 
@@ -46,7 +45,7 @@ public class Controller {
         mem_wb = new MEM_WB();
         wb_fin = new WB_FIN();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             piplineInstructions.add(Instruction._STALL_);
         }
 
@@ -57,12 +56,12 @@ public class Controller {
 
             if (instructions.containsKey(pc))
                 piplineInstructions.add(instructions.get(pc));
-            while(piplineInstructions.size() > 5){
+            while (piplineInstructions.size() > 5) {
                 piplineInstructions.remove(0);
             }
 
             for (Instruction pip : piplineInstructions) {
-                System.out.print(pip.type+ "    ");
+                System.out.print(pip.type + "    ");
             }
             System.out.println();
 
@@ -71,9 +70,11 @@ public class Controller {
             EX_MEM copy_ex_mem = ex_mem.copy();
             MEM_WB copy_mem_wb = mem_wb.copy();
 
+            int temp_pc = -1;
+//            int[] a = {0, 1, 2, 3, 5, 4};
+//            for (int i = piplineInstructions.size()-1 ; i>= 0; i--) {
+            for (int i = piplineInstructions.size() - 1; i >= 0; i--) {
 
-
-            for (int i = 0; i < piplineInstructions.size(); i++) {
                 if (piplineInstructions.get(i) == null) // Stall
                     continue;
 
@@ -92,16 +93,19 @@ public class Controller {
                         break;
                     // EX : Stage 3
                     case 2:
-//
-                        //TODO: FORWARDING
-                        boolean forward = false;
-                        if (!forward) {
-                            ex_mem.eval(copy_id_ex, instruction);
-                            id_ex.exec();
-                        }
+
+//                        //TODO: FORWARDING
+//                        boolean forward = false;
+//                        if (!forward) {
+                        ex_mem.eval(copy_id_ex, instruction, registers, labelToAddress);
+                        ex_mem.exec();
+                        ALU.compute(instruction, registers);
+                        if (ex_mem.branch)
+                            temp_pc = labelToAddress.get(instruction.label);
                         break;
                     // MEM: Stage 4
                     case 1:
+
                         mem_wb.eval(copy_ex_mem, instruction);
                         mem_wb.exec();
                         break;
@@ -110,17 +114,35 @@ public class Controller {
                         wb_fin.eval(copy_mem_wb, forwardingRegisters);
                         wb_fin.exec(forwardingRegisters);
                         break;
-
                 }
             }
-            pc += 4;
+            if (ex_mem.branch)
+                pc = temp_pc;
+            else
+                pc += 4;
             piplineInstructions.remove(0);
         } while (!piplineInstructions.isEmpty());
-
-        for (int i = 0; i < 5; i++) {
-            System.out.print(forwardingRegisters.read(i) + "    ");
+        System.out.println("FORWARDED");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(i + ":" + forwardingRegisters.read(i) + "    ");
         }
+        System.out.println();
+        System.out.println("CORERCT");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(i + ":" + registers.read(i) + "    ");
+        }
+
     }
 
+
+    boolean hazard_data_EX(MEM_WB mem_wb, EX_MEM ex_mem) {
+        //FIXME: zero register bug
+        if (mem_wb.controlLines.RegWrite &&
+                mem_wb.Rd != 0 &&
+                !((ex_mem.controlLines.RegWrite && ex_mem.Rd != 0) && (ex_mem.Rd != id_ex.Rd)) &&
+                (mem_wb.Rd == id_ex.Rs))
+            return true;
+        return false;
+    }
 
 }

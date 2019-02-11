@@ -9,11 +9,10 @@ public class IF_ID extends PipelineReg {
 
     void eval(Instruction instruction,int pc) {
         this.binary = instruction.binaryCode;
-        this.pc = pc;
+        this.pc = pc+=4;
     }
 
     void exec(){
-        this.pc +=4;
     }
 
     IF_ID copy(){

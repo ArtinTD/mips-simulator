@@ -15,4 +15,7 @@ public class Memory {
     static void write(int address, int value){
         memory.put(address,value);
     }
+    static Map<Integer,Integer> getMemory(){
+        return memory;
+    }
 }

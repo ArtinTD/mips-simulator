@@ -21,5 +21,4 @@ public class WB_FIN extends PipelineReg {
     }
 
     WB_FIN copy(){return null;}
-
 }

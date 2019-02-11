@@ -3,6 +3,7 @@
  */
 //Checked.
 public class ControlLines {
+
     //ID_EX
     public boolean RegDest;
     public boolean ALUOp1;
@@ -23,7 +24,7 @@ public class ControlLines {
     static ControlLines _SW_ = new ControlLines(false, false, false, true, false, false, true, false, false);
     static ControlLines _BEQ_ = new ControlLines(false, false, true, false, true, false, false, false, false);
     static ControlLines _STALL_ = new ControlLines(false,false,false,false,false,false,false,false,false);
-
+    static ControlLines _ADDI_ = new ControlLines(false,false,false,true,false,false,false,true,false) ;
     public ControlLines(boolean regDest, boolean aluOp1, boolean aluOp0, boolean aluSrc, boolean branch, boolean memRead, boolean memWrite, boolean regWrite, boolean memToReg) {
         RegDest = regDest;
         ALUOp1 = aluOp1;

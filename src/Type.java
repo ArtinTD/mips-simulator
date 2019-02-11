@@ -12,6 +12,11 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._RTYPE_;
         }
+
+        @Override
+        public Species species() {
+            return Species.R;
+        }
     },
     SUB {
         @Override
@@ -22,6 +27,11 @@ public enum Type {
         @Override
         public ControlLines getControlLines() {
             return ControlLines._RTYPE_;
+        }
+
+        @Override
+        public Species species() {
+            return Species.R;
         }
     },
     OR {
@@ -34,6 +44,11 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._RTYPE_;
         }
+
+        @Override
+        public Species species() {
+            return Species.R;
+        }
     },
     AND {
         @Override
@@ -44,6 +59,11 @@ public enum Type {
         @Override
         public ControlLines getControlLines() {
             return ControlLines._RTYPE_;
+        }
+
+        @Override
+        public Species species() {
+            return Species.R;
         }
     },
     NOR {
@@ -56,6 +76,11 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._RTYPE_;
         }
+
+        @Override
+        public Species species() {
+            return Species.R;
+        }
     },
     SLT {
         @Override
@@ -66,6 +91,11 @@ public enum Type {
         @Override
         public ControlLines getControlLines() {
             return ControlLines._RTYPE_;
+        }
+
+        @Override
+        public Species species() {
+            return Species.R;
         }
     },
     BEQ {
@@ -79,6 +109,11 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._BEQ_;
         }
+
+        @Override
+        public Species species() {
+            return Species.J;
+        }
     },
     LW {
         @Override
@@ -89,6 +124,11 @@ public enum Type {
         @Override
         public ControlLines getControlLines() {
             return ControlLines._LW_;
+        }
+
+        @Override
+        public Species species() {
+            return  Species.LS;
         }
     },
     SW {
@@ -101,6 +141,11 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._SW_;
         }
+
+        @Override
+        public Species species() {
+            return  Species.LS;
+        }
     },
     STALL{
         @Override
@@ -112,12 +157,34 @@ public enum Type {
         public ControlLines getControlLines() {
             return ControlLines._STALL_;
         }
-    }
-    ;
+
+        @Override
+        public Species species() {
+            return null;
+        }
+    },
+    ADDI {
+        @Override
+        public int ALUCompute(int alu1, int alu2) {
+            return alu1 + alu2;
+        }
+
+        @Override
+        public ControlLines getControlLines() {
+            return ControlLines._ADDI_;
+        }
+
+        @Override
+        public Species species() {
+            return Species.I;
+        }
+    };
 
 
 
     public abstract int ALUCompute(int alu1, int alu2);
 
     public abstract ControlLines getControlLines();
+
+    public abstract Species species();
 }
