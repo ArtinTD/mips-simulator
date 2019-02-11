@@ -11,6 +11,7 @@ public class Controller {
     Map<Integer, Instruction> instructions;
     Map<String, Integer> labelToAddress;
     int cycleNumber;
+    int maxCycle;
     ArrayDeque<Integer> pipelinePc;
     ArrayList<Instruction> piplineInstructions;
 
@@ -24,10 +25,10 @@ public class Controller {
     WB_FIN wb_fin;
 
 
-    public Controller(ArrayList<Instruction> instructions) {
+    public Controller(ArrayList<Instruction> instructions,int maxCycle) {
         this.instructions = new HashMap<>();
         this.labelToAddress = new HashMap<>();
-
+        this.maxCycle = maxCycle;
         for (int i = 0; i < instructions.size(); i++) {
             this.instructions.put(4 * i + INITIAL_PC, instructions.get(i));
             if (instructions.get(i).inpLabel != null)
@@ -53,7 +54,7 @@ public class Controller {
         int pc = INITIAL_PC;
 
         do {
-
+            cycleNumber ++;
             if (instructions.containsKey(pc))
                 piplineInstructions.add(instructions.get(pc));
             while (piplineInstructions.size() > 5) {
@@ -121,7 +122,7 @@ public class Controller {
             else
                 pc += 4;
             piplineInstructions.remove(0);
-        } while (!piplineInstructions.isEmpty());
+        } while (!piplineInstructions.isEmpty() && cycleNumber <= maxCycle);
         System.out.println("FORWARDED");
         for (int i = 0; i < 10; i++) {
             System.out.print(i + ":" + forwardingRegisters.read(i) + "    ");
