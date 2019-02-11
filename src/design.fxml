@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -27,60 +30,91 @@
                             <bottom>
                                 <Button mnemonicParsing="false" onAction="#compile" text="Compile!" BorderPane.alignment="CENTER" />
                             </bottom>
+                            <right>
+                                <ListView fx:id="errors" editable="true" prefHeight="941.0" prefWidth="378.0" BorderPane.alignment="CENTER" />
+                            </right>
                         </BorderPane>
                     </content>
                 </Tab>
                 <Tab text="Registers">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <HBox>
-                           <children>
-                                      <TableView fx:id="registers" editable="true" prefHeight="350.0" prefWidth="268.0">
-                                          <columns>
-                                              <TableColumn text="RegName" />
-                                              <TableColumn prefWidth="68.0" text="RegNum" />
-                                              <TableColumn prefWidth="119.0" text="Val" />
-                                          </columns>
-                                      </TableView>
-                              <TitledPane animated="false" text="IF_ID">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <HBox>
+                                    <children>
+                                        <TableView fx:id="registers" editable="true" prefHeight="350.0" prefWidth="268.0">
+                                            <columns>
+                                                <TableColumn text="RegName" />
+                                                <TableColumn prefWidth="68.0" text="RegNum" />
+                                                <TableColumn prefWidth="119.0" text="Val" />
+                                            </columns>
+                                        </TableView>
+                                        <TitledPane animated="false" text="IF_ID">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="if_id" alignment="TOP_LEFT" prefHeight="320.0" prefWidth="201.0" />
+                                       </children></AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                              <TitledPane animated="false" layoutX="278.0" layoutY="10.0" text="ID_EX">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="id_ex" alignment="TOP_LEFT" prefHeight="320.0" prefWidth="201.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane animated="false" text="ID_EX">
+                              <TitledPane animated="false" layoutX="480.0" layoutY="10.0" text="EX_MEM">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="ex_mem" alignment="TOP_LEFT" prefHeight="320.0" prefWidth="201.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane animated="false" text="EX_MEM">
+                              <TitledPane animated="false" layoutX="682.0" layoutY="10.0" text="MEM_WB">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="mem_wb" alignment="TOP_LEFT" prefHeight="320.0" prefWidth="201.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane animated="false" text="MEM_WB">
+                              <TitledPane animated="false" layoutX="884.0" layoutY="10.0" text="WB_FIN">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="wb_fin" alignment="TOP_LEFT" prefHeight="320.0" prefWidth="201.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane animated="false" text="Control Values">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="200.0" />
-                                 </content>
-                              </TitledPane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-               </content>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
                 </Tab>
-            <Tab text="Memory">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
+                <Tab text="Memory">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="memory" layoutX="60.0" layoutY="68.0" prefHeight="517.0" prefWidth="483.0">
+                          <columns>
+                            <TableColumn prefWidth="236.0" text="Address" />
+                            <TableColumn minWidth="0.0" prefWidth="251.0" text="Value(Not displayed are zero)" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
+      <Separator prefWidth="200.0" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#prevClockcycle" text="Prev" textAlignment="CENTER">

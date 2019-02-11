@@ -37,5 +37,18 @@ public class ControlLines {
         MemToReg = memToReg;
     }
 
-
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += "\nRegDest: " + RegDest;
+        ret += "\nALUOp1: " + ALUOp1;
+        ret += "\nALUOp0: " + ALUOp0;
+        ret += "\nALUSrc: " + ALUSrc;
+        ret += "\nBranch: " + Branch;
+        ret += "\nMemRead: " + MemRead;
+        ret += "\nMemWrite: " + MemWrite;
+        ret += "\nRegWrite: " + RegWrite;
+        ret += "\nMemToReg: " + MemToReg;
+        return ret;
+    }
 }

@@ -12,6 +12,7 @@ public class Controller {
     Map<String, Integer> labelToAddress;
     int cycleNumber;
     int maxCycle;
+    Memory memory = new Memory();
     ArrayDeque<Integer> pipelinePc;
     ArrayList<Instruction> piplineInstructions;
 
@@ -43,7 +44,7 @@ public class Controller {
         if_id = new IF_ID();
         id_ex = new ID_EX();
         ex_mem = new EX_MEM();
-        mem_wb = new MEM_WB();
+        mem_wb = new MEM_WB(memory);
         wb_fin = new WB_FIN();
 
         for (int i = 0; i < 4; i++) {
@@ -100,7 +101,7 @@ public class Controller {
 //                        if (!forward) {
                         ex_mem.eval(copy_id_ex, instruction, registers, labelToAddress);
                         ex_mem.exec();
-                        ALU.compute(instruction, registers);
+                        ALU.compute(instruction, registers, memory);
                         if (ex_mem.branch)
                             temp_pc = labelToAddress.get(instruction.label);
                         break;
@@ -128,7 +129,7 @@ public class Controller {
             System.out.print(i + ":" + forwardingRegisters.read(i) + "    ");
         }
         System.out.println();
-        System.out.println("CORERCT");
+        System.out.println("CORRECT");
         for (int i = 0; i < 10; i++) {
             System.out.print(i + ":" + registers.read(i) + "    ");
         }
@@ -146,4 +147,28 @@ public class Controller {
         return false;
     }
 
+    public String IF_IDtoString(){
+        return "\nPC: " + if_id.pc
+                + "\nBinary: " + if_id.binary;
+    }
+
+    public String ID_EXtoString(){
+        return "\nPC: " + id_ex.pc
+                + id_ex.controlLines.toString();
+    }
+
+    public String EX_MEMtoString(){
+        return "\nPC: " + ex_mem.pc
+                + ex_mem.controlLines.toString()
+                + "\nALUResult: " + ex_mem.ALUResult
+                + "\nbranch: " + ex_mem.branch;
+    }
+
+    public String MEM_WBtoString(){
+        return mem_wb.controlLines.toString();
+    }
+
+    public String WB_FINtoString() {
+        return wb_fin.controlLines.toString();
+    }
 }

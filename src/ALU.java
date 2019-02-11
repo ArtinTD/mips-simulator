@@ -2,7 +2,7 @@
  * Created by ASUS on 1/31/2019.
  */
 public class ALU {
-    public static int compute(Instruction instruction, Registers registers) {
+    public static int compute(Instruction instruction, Registers registers, Memory memory) {
         //Removed type from arguments
         Type type = instruction.type;
         int reg1,reg2,imd = 0;
@@ -45,7 +45,7 @@ public class ALU {
             case LW:
                 reg1 = registers.read( instruction.Rs );
                 imd = instruction.immediate;
-                registers.write(instruction.Rt,Memory.read(reg1 + imd));
+                registers.write(instruction.Rt,memory.read(reg1 + imd));
 
                 return reg1 + imd;
             case SW:

@@ -3,7 +3,7 @@
  */
 public class WB_FIN extends PipelineReg {
 
-    private ControlLines controlLines =ControlLines._STALL_;
+    ControlLines controlLines =ControlLines._STALL_;
     private int writeData;
     private int writeRegister;
 
