@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIController">
+    <children>
+        <TabPane prefHeight="400.0" prefWidth="975.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Editor">
+                    <content>
+                        <BorderPane prefHeight="400.0" prefWidth="975.0">
+                            <center>
+                                <TextArea maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="686.0" BorderPane.alignment="CENTER" />
+                            </center>
+                            <bottom>
+                                <Button onAction="#compile" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+                            </bottom>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Steps">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="registers" editable="true" prefHeight="350.0" prefWidth="268.0">
+                                    <columns>
+                                        <TableColumn text="RegName" />
+                                        <TableColumn prefWidth="68.0" text="RegNum" />
+                                        <TableColumn prefWidth="119.0" text="Val" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>
